@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | Bantay-Lamok</title>
+<meta name="description" content="Pre-order a Bantay-Lamok kit or ask a question.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand"><img src="logo.png" alt="" width="40" height="40" style="width:40px;height:40px;object-fit:contain"><span>Bantay-<b>Lamok</b></span></a>
+    <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html" class="nav-cta active">Get a Kit</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Contact</span>
+    <h1>Let's get your trap <span style="color:#8be26a">talking</span></h1>
+    <p>Pre-order a kit, ask about bulk orders, or send us a question.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container contact-grid">
+    <div class="contact-info reveal">
+      <h2 style="margin-bottom:26px">We'd love to hear from you</h2>
+      <div class="item"><div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div><div><h4>Email</h4><p>hello@bantay-lamok.example</p></div></div>
+      <div class="item"><div class="icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><div><h4>Location</h4><p>NU Fairview, Quezon City, Philippines</p></div></div>
+      <div class="item"><div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><h4>Response time</h4><p>We reply within 2 to 3 working days.</p></div></div>
+      <div class="notice teal">Replace the sample email and details above with your team's real contact information before publishing.</div>
+    </div>
+
+    <form id="contact-form" class="reveal">
+      <div class="two">
+        <div class="field"><label for="name">Name</label><input id="name" name="name" required placeholder="Juan Dela Cruz"></div>
+        <div class="field"><label for="phone">Mobile number</label><input id="phone" name="phone" type="tel" placeholder="09XX XXX XXXX"></div>
+      </div>
+      <div class="field"><label for="interest">I'm interested in</label>
+        <select id="interest" name="interest">
+          <option>Ready Kit</option>
+          <option>DIY Kit</option>
+          <option>Multi-Kit</option>
+          <option>Bulk order (school, barangay, LGU)</option>
+          <option>General question</option>
+        </select>
+      </div>
+      <div class="field"><label for="message">Message</label><textarea id="message" name="message" placeholder="Tell us about your space and how many traps you keep."></textarea></div>
+      <button class="btn btn-primary btn-block" type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a href="index.html" class="brand"><img src="logo.png" alt="" style="width:40px;height:40px;object-fit:contain;background:#fff;border-radius:10px;padding:3px"><span>Bantay-<b>Lamok</b></span></a>
+        <p style="font-size:.93rem;max-width:300px">Smarter Traps. Safer Spaces.<br>A 4G LTE hub-and-node ovitrap monitoring and alert system.</p>
+      </div>
+      <div><h4>Explore</h4><ul><li><a href="features.html">Features</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Kits</h4><ul><li><a href="pricing.html">DIY Kit</a></li><li><a href="pricing.html">Ready Kit</a></li><li><a href="pricing.html">Multi-Kit</a></li></ul></div>
+      <div><h4>Project</h4><ul><li>NU Fairview</li><li>Computer Engineering</li><li>CpE Elective: Embedded Systems</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 Bantay-Lamok. Techtonic Crafters.</span>
+      <span>A trap-condition monitor. Not a medical device. Does not detect mosquitoes or disease.</span>
+    </div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

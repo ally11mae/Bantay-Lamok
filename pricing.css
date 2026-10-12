@@ -1,0 +1,209 @@
+/* ===== Pricing page only. Loaded after styles.css; every rule is scoped to .pricing-page ===== */
+
+/* ---------- Hero: same look as Features / How It Works, with extra room for the overlapping plans ---------- */
+.pricing-page .price-hero{padding:84px 0 190px}
+.pricing-page .price-hero .hero-badges{justify-content:center;margin-top:28px;position:relative}
+
+/* ---------- Plans: overlap the hero ---------- */
+.pricing-page .plans-sec{padding:0 0 40px;background:#fff}
+.pricing-page .plans{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;align-items:stretch;
+  margin-top:-120px;position:relative;z-index:5;
+}
+.pricing-page .plan{
+  position:relative;display:flex;flex-direction:column;
+  background:#fff;border:1px solid var(--line);border-radius:30px;
+  padding:40px 34px 34px;
+  box-shadow:0 18px 50px rgba(7,61,41,.14);
+  transition:transform .3s,box-shadow .3s;
+  animation:planin .85s cubic-bezier(.2,.7,.2,1) both;
+}
+.pricing-page .plan:nth-child(1){animation-delay:.05s}
+.pricing-page .plan:nth-child(2){animation-delay:.18s}
+.pricing-page .plan:nth-child(3){animation-delay:.31s}
+@keyframes planin{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:none}}
+.pricing-page .plan:hover{transform:translateY(-8px);box-shadow:0 28px 64px rgba(7,61,41,.2)}
+
+.pricing-page .plan-icon{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;margin-bottom:22px}
+.pricing-page .plan-icon svg{width:28px;height:28px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pricing-page .i-diy{background:linear-gradient(135deg,#6cc04a,#3da53a);box-shadow:0 10px 22px rgba(61,165,58,.35)}
+.pricing-page .i-ready{background:linear-gradient(135deg,#8be26a,#14a3b8);box-shadow:0 10px 22px rgba(20,163,184,.4)}
+.pricing-page .i-multi{background:linear-gradient(135deg,#14a3b8,#0b6b73);box-shadow:0 10px 22px rgba(14,143,165,.38)}
+
+.pricing-page .plan h3{font-size:1.5rem;color:var(--green-800)}
+.pricing-page .plan .tag{min-height:48px;margin:6px 0 22px;color:var(--muted)}
+.pricing-page .plan-price{display:flex;align-items:flex-start;gap:4px;line-height:1;color:var(--green-900)}
+.pricing-page .plan-price .cur{font-size:1.7rem;font-weight:700;margin-top:10px}
+.pricing-page .plan-price .amt{font-size:4rem;font-weight:800;letter-spacing:-.05em}
+.pricing-page .plan-price .per{align-self:flex-end;font-size:.88rem;font-weight:600;color:var(--muted);margin:0 0 9px 6px}
+.pricing-page .plan-price .from{align-self:flex-end;font-size:.95rem;font-weight:600;color:var(--muted);margin:0 6px 9px 0}
+.pricing-page .plan-spec{
+  align-self:flex-start;margin:14px 0 24px;
+  font-size:.8rem;font-weight:600;line-height:1.4;
+  background:var(--mint-2);color:var(--green-800);
+  padding:7px 14px;border-radius:99px;
+}
+.pricing-page .plan ul{margin-bottom:30px;flex:1}
+.pricing-page .plan li{
+  position:relative;padding:10px 0 10px 34px;font-size:.93rem;color:var(--ink);
+  border-bottom:1px dashed var(--line);
+}
+.pricing-page .plan li:last-child{border:0}
+.pricing-page .plan li::before{
+  content:"✓";position:absolute;left:0;top:10px;width:22px;height:22px;border-radius:50%;
+  background:var(--mint-2);color:var(--green-600);font-size:.72rem;font-weight:800;
+  display:grid;place-items:center;
+}
+
+/* Featured Ready Kit: dark, lifted, glowing */
+.pricing-page .plan.featured{
+  scale:1.045;border:0;color:#fff;
+  background:
+    radial-gradient(420px 260px at 90% 0%,rgba(92,201,217,.32),transparent 70%),
+    linear-gradient(165deg,#052f20 0%,#0a4a31 52%,#0b6b73 100%);
+  box-shadow:0 34px 80px rgba(7,61,41,.5),0 0 0 1px rgba(139,226,106,.28),0 0 70px rgba(92,201,217,.22);
+}
+.pricing-page .plan.featured:hover{transform:translateY(-8px)}
+.pricing-page .plan.featured h3{color:#fff}
+.pricing-page .plan.featured .tag{color:#bfe6d8}
+.pricing-page .plan.featured .plan-price{color:#fff}
+.pricing-page .plan.featured .plan-price .amt{
+  background:linear-gradient(135deg,#8be26a,#5cc9d9);-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.pricing-page .plan.featured .plan-price .per{color:#a9d8c6}
+.pricing-page .plan.featured .plan-spec{background:rgba(255,255,255,.14);color:#e6f6ef}
+.pricing-page .plan.featured li{color:#e6f6ef;border-color:rgba(255,255,255,.14)}
+.pricing-page .plan.featured li::before{background:rgba(139,226,106,.2);color:#8be26a}
+.pricing-page .plan.featured .btn{background:#fff;color:var(--green-800);box-shadow:0 12px 26px rgba(0,0,0,.28)}
+.pricing-page .plan.featured .btn:hover{transform:translateY(-3px);box-shadow:0 18px 34px rgba(0,0,0,.34)}
+.pricing-page .plan .ribbon{top:-16px;background:linear-gradient(135deg,#8be26a,#5cc9d9);color:#073d29;box-shadow:0 8px 20px rgba(92,201,217,.45)}
+.pricing-page .price-foot{text-align:center;margin-top:34px;font-size:.88rem;color:var(--muted)}
+
+/* ---------- Builder ---------- */
+.pricing-page .builder-sec{padding:50px 0 90px;background:#fff}
+.pricing-page .builder{
+  display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden;color:#fff;
+  border-radius:34px;box-shadow:var(--shadow-lg);
+  background:
+    radial-gradient(520px 320px at 100% 0%,rgba(92,201,217,.3),transparent 70%),
+    radial-gradient(480px 320px at 0% 100%,rgba(61,165,58,.28),transparent 70%),
+    linear-gradient(160deg,#041f15 0%,#07402c 55%,#0a5560 100%);
+}
+.pricing-page .b-left,.pricing-page .b-right{padding:52px}
+.pricing-page .b-right{background:rgba(255,255,255,.06);border-left:1px solid rgba(255,255,255,.12)}
+.pricing-page .builder h2{margin-bottom:12px}
+.pricing-page .b-lead{color:#cfeadf;max-width:440px;margin-bottom:34px}
+.pricing-page .b-group{margin-bottom:30px}
+.pricing-page .b-label{display:block;font-size:.9rem;font-weight:600;color:#a9d8c6;margin-bottom:12px}
+
+.pricing-page .seg{display:inline-flex;flex-wrap:wrap;background:rgba(255,255,255,.1);border-radius:99px;padding:5px}
+.pricing-page .seg button{
+  border:0;font:inherit;font-weight:700;font-size:.92rem;cursor:pointer;
+  padding:11px 22px;border-radius:99px;background:transparent;color:#cfeadf;transition:background .25s,color .25s;
+}
+.pricing-page .seg button[aria-checked="true"]{background:#fff;color:var(--green-800);box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.pricing-page .seg button:hover:not([aria-checked="true"]){background:rgba(255,255,255,.12)}
+
+.pricing-page .stepper{display:flex;align-items:center;gap:16px}
+.pricing-page .stepper button{
+  flex:none;width:44px;height:44px;border-radius:50%;cursor:pointer;
+  border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:#fff;font:inherit;font-size:1.4rem;line-height:1;
+  transition:background .2s,transform .2s;
+}
+.pricing-page .stepper button:hover{background:#fff;color:var(--green-800);transform:scale(1.08)}
+.pricing-page .stepper input{-webkit-appearance:none;appearance:none;flex:1;height:8px;border-radius:99px;background:rgba(255,255,255,.2);padding:0;border:0;box-shadow:none;cursor:pointer}
+.pricing-page .stepper input:focus{background:rgba(255,255,255,.28);box-shadow:none}
+.pricing-page .stepper input::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#8be26a,#5cc9d9);border:4px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.pricing-page .stepper input::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#8be26a;border:4px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.pricing-page .b-count{display:block;margin-top:14px;font-size:1.5rem;font-weight:800;letter-spacing:-.02em}
+.pricing-page .b-note{font-size:.84rem;color:#a9d8c6;max-width:440px}
+.pricing-page .b-note a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+.pricing-page .total{
+  font-size:clamp(3.2rem,6.4vw,5rem);font-weight:800;letter-spacing:-.05em;line-height:1;
+  background:linear-gradient(135deg,#8be26a,#5cc9d9);-webkit-background-clip:text;background-clip:text;color:transparent;
+  font-variant-numeric:tabular-nums;
+}
+.pricing-page .breakdown{margin:12px 0 22px;font-size:.9rem;color:#cfeadf;min-height:2.6em}
+.pricing-page .pertrap{font-size:1.05rem;color:#e6f6ef;margin-bottom:22px}
+.pricing-page .pertrap strong{font-size:1.5rem;font-weight:800;color:#fff;letter-spacing:-.02em}
+
+.pricing-page .bars{display:flex;align-items:stretch;gap:7px;height:130px}
+.pricing-page .bars .col{
+  flex:1;display:flex;flex-direction:column;gap:7px;height:100%;
+  background:none;border:0;padding:0;cursor:pointer;font:inherit;color:#a9d8c6;
+}
+.pricing-page .bars .track{flex:1;position:relative;width:100%}
+.pricing-page .bars .track i{
+  position:absolute;left:0;right:0;bottom:0;border-radius:9px 9px 3px 3px;
+  background:rgba(255,255,255,.2);transition:height .4s cubic-bezier(.2,.7,.2,1),background .25s;
+}
+.pricing-page .bars .col:hover .track i{background:rgba(255,255,255,.36)}
+.pricing-page .bars .col.on .track i{background:linear-gradient(180deg,#8be26a,#14a3b8);box-shadow:0 0 22px rgba(139,226,106,.5)}
+.pricing-page .bars .col span{font-size:.74rem;font-weight:600;text-align:center}
+.pricing-page .bars .col.on span{color:#fff}
+.pricing-page .bars-cap{margin:10px 0 26px;font-size:.8rem;color:#a9d8c6}
+.pricing-page .b-cta{background:#fff;color:var(--green-800);box-shadow:0 12px 26px rgba(0,0,0,.28)}
+.pricing-page .b-cta:hover{transform:translateY(-3px)}
+
+.pricing-page .pricelist{margin-top:26px}
+.pricing-page .pricelist summary{font-size:1rem}
+.pricing-page .pl-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;padding:4px 26px 28px;align-items:start}
+
+/* ---------- Compare table ---------- */
+.pricing-page .compare-sec{padding:90px 0;background:var(--mint);position:relative}
+.pricing-page .table-wrap{border-radius:22px;box-shadow:var(--shadow)}
+.pricing-page table{box-shadow:none;border-radius:0;min-width:480px}
+.pricing-page th{background:linear-gradient(135deg,#073d29,#0b6b73);font-size:.95rem;padding:18px 20px}
+.pricing-page td{padding:16px 20px;transition:background .2s}
+.pricing-page tbody tr:hover td{background:#e6f7ee}
+.pricing-page .compare th:nth-child(3){background:linear-gradient(135deg,#3da53a,#14a3b8)}
+.pricing-page .compare td:nth-child(3){background:rgba(20,163,184,.07);font-weight:600}
+.pricing-page .compare tbody tr:nth-child(even) td:nth-child(3){background:rgba(20,163,184,.11)}
+.pricing-page .compare tbody tr:hover td:nth-child(3){background:rgba(20,163,184,.18)}
+.pricing-page td.yes{font-size:1rem}
+.pricing-page .compare{overflow-x:auto}
+
+/* ---------- Notices ---------- */
+.pricing-page .notes-sec{padding:70px 0}
+.pricing-page .notice{position:relative;padding:26px 26px 26px 76px;border-radius:20px;border-left-width:1px;font-size:.95rem}
+.pricing-page .notice::before{
+  content:"!";position:absolute;left:24px;top:24px;width:32px;height:32px;border-radius:50%;
+  display:grid;place-items:center;font-weight:800;color:#fff;background:#f0b429;
+}
+.pricing-page .notice.teal::before{content:"i";background:var(--teal-500)}
+.pricing-page .notice.teal{border-left-width:1px}
+
+/* ---------- FAQ ---------- */
+.pricing-page .faq-sec{padding:90px 0;background:var(--mint)}
+.pricing-page .faq details[open]{border-left:5px solid var(--teal-500)}
+
+/* ---------- Closing CTA ---------- */
+.pricing-page .cta-sec{padding:90px 0}
+.pricing-page .cta{
+  padding:84px 40px;
+  background:
+    linear-gradient(135deg,rgba(5,47,32,.9) 0%,rgba(10,74,49,.82) 50%,rgba(11,107,115,.78) 100%),
+    url("hero-bg.jpg") right center/cover no-repeat;
+}
+.pricing-page .cta::before{border-color:rgba(255,255,255,.18)}
+.pricing-page .cta h2{font-size:clamp(2rem,4.4vw,3.2rem)}
+.pricing-page .cta .btn{padding:16px 38px;font-size:1.05rem}
+
+/* ---------- Responsive ---------- */
+@media(max-width:980px){
+  .pricing-page .price-hero{padding:76px 0 150px}
+  .pricing-page .plans{grid-template-columns:1fr;max-width:520px;margin-inline:auto;margin-top:-90px;gap:34px}
+  .pricing-page .plan.featured{scale:1}
+  .pricing-page .builder{grid-template-columns:1fr}
+  .pricing-page .b-right{border-left:0;border-top:1px solid rgba(255,255,255,.12)}
+  .pricing-page .pl-inner{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .pricing-page .b-left,.pricing-page .b-right{padding:34px 24px}
+  .pricing-page .plan{padding:34px 26px 28px}
+  .pricing-page .plan-price .amt{font-size:3.4rem}
+  .pricing-page .seg button{padding:10px 16px;font-size:.86rem}
+  .pricing-page .notice{padding:22px 20px 22px 68px}
+  .pricing-page .cta{padding:60px 24px}
+}
