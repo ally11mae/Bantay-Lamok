@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bantay-Lamok Local Dashboard (mock)</title>
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eefaf3; --card:#ffffff; --ink:#0d2b22; --mute:#4f6a60; --line:#d5ebe2;
+  --brand:#0b7a8e; --brand-soft:#e2f6f1; --on-brand:#ffffff;
+  --ok:#1f7a35; --ok-bg:#dff3e6;
+  --warn:#9a5200; --warn-bg:#fdf0d2;
+  --crit:#b3261e; --crit-bg:#fbe2df;
+  --off:#44625a; --off-bg:#e3ece8;
+  --green-900:#073d29; --green-800:#0a4a31; --green-600:#3da53a;
+  --teal-500:#14a3b8; --teal-300:#5cc9d9;
+  --grad:linear-gradient(135deg,#4cb53f 0%,#14a3b8 100%);
+  --grad-dark:linear-gradient(160deg,#052f20 0%,#0a4a31 55%,#0b6b73 100%);
+  --shadow:0 12px 34px rgba(7,61,41,.12);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:'Poppins',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--teal-500);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+
+/* header */
+header{background:radial-gradient(600px 220px at 92% 0%,rgba(92,201,217,.35),transparent 70%),radial-gradient(500px 220px at 0% 100%,rgba(61,165,58,.3),transparent 70%),var(--grad-dark);color:#fff;position:relative}
+header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--grad)}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;padding:16px 0 20px}
+.brand{display:flex;align-items:center;gap:12px;margin-right:auto}
+.brand img{width:44px;height:44px;object-fit:contain;background:#fff;border-radius:12px;padding:3px;flex:none}
+.brand h1{font-size:1.25rem;line-height:1.1;margin:0;font-weight:800;letter-spacing:-.02em}
+.brand h1 b{color:var(--teal-300);font-weight:800}
+.brand p{margin:3px 0 0;font-size:.82rem;color:#bfe6d8}
+.hub{display:flex;flex-wrap:wrap;gap:6px 8px;font-size:.8rem}
+.hub span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:5px 12px;color:#d8efe5}
+.hub b{font-family:var(--mono);font-weight:600;color:#fff}
+.mockbar{background:var(--green-900);color:#a9d8c6;font-size:.78rem;text-align:center;padding:6px 12px}
+.mockbar a{color:var(--teal-300);font-weight:600;text-decoration:underline;text-underline-offset:3px;margin-left:6px}
+
+/* tabs */
+nav{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav .wrap{display:flex;gap:4px;overflow-x:auto}
+nav button{background:none;border:0;border-bottom:3px solid transparent;padding:14px 16px;cursor:pointer;color:var(--mute);font-weight:600;font-size:.92rem;white-space:nowrap;transition:.2s}
+nav button[aria-selected="true"]{color:var(--brand);border-bottom-color:var(--teal-500)}
+nav button:hover{color:var(--green-800);background:var(--brand-soft)}
+
+main{padding:24px 0 48px}
+section[hidden]{display:none}
+h2{font-size:1.4rem;margin:0 0 4px;font-weight:800;letter-spacing:-.02em;color:var(--green-800)}
+.sub{color:var(--mute);margin:0 0 18px;font-size:.92rem;max-width:62ch}
+
+/* counts */
+.counts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.count{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:0 6px 18px rgba(7,61,41,.06)}
+.count b{display:block;font-size:1.9rem;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums;letter-spacing:-.03em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.count span{font-size:.84rem;color:var(--mute)}
+.count.ok b{background:none;color:var(--ok)} .count.warn b{background:none;color:var(--crit)} .count.off b{background:none;color:var(--off)}
+
+/* status pills */
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 11px 3px 9px;font-size:.8rem;font-weight:700;white-space:nowrap}
+.pill i{font-style:normal;font-size:.8rem;line-height:1}
+.s-ok{background:var(--ok-bg);color:var(--ok)}
+.s-warn{background:var(--warn-bg);color:var(--warn)}
+.s-crit{background:var(--crit-bg);color:var(--crit)}
+.s-off{background:var(--off-bg);color:var(--off)}
+
+/* trap queue */
+.group-title{display:flex;align-items:baseline;gap:10px;margin:24px 0 10px}
+.group-title h3{margin:0;font-size:1.05rem;font-weight:800;color:var(--green-800)}
+.group-title span{color:var(--mute);font-size:.88rem}
+.queue{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.trap{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--line);border-radius:16px;padding:14px 16px;display:grid;grid-template-columns:auto 1fr auto;gap:2px 14px;align-items:center;cursor:pointer;text-align:left;width:100%;transition:.25s;box-shadow:0 4px 14px rgba(7,61,41,.05)}
+.trap:hover{border-color:var(--teal-500);transform:translateY(-3px);box-shadow:var(--shadow)}
+.trap.s-ok{border-left-color:var(--green-600)} .trap.s-warn{border-left-color:#f0b429} .trap.s-crit{border-left-color:#e5484d} .trap.s-off{border-left-color:#9bb3aa}
+.trap{background:var(--card);color:var(--ink)}
+.tid{font-family:var(--mono);font-weight:700;font-size:1.05rem;grid-row:1 / span 2;color:var(--green-800);background:var(--brand-soft);border-radius:10px;padding:6px 10px}
+.troom{font-weight:700}
+.why{color:var(--mute);font-size:.88rem;grid-column:2}
+.pillcell{grid-column:3;grid-row:1 / span 2;justify-self:end}
+.meta{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.84rem;color:var(--mute)}
+.meta b{color:var(--ink);font-family:var(--mono);font-weight:600}
+details.normal summary{cursor:pointer;color:var(--brand);font-weight:700;padding:6px 0}
+
+/* map */
+.map{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:var(--shadow)}
+.room{border:2px solid var(--line);border-radius:14px;padding:12px;min-height:92px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;background:var(--bg);text-align:left;transition:.25s}
+.room:hover{border-color:var(--teal-500);transform:translateY(-3px)}
+.room.s-ok{border-color:var(--green-600)} .room.s-warn{border-color:#f0b429} .room.s-crit{border-color:#e5484d} .room.s-off{border-color:#9bb3aa;border-style:dashed}
+.room strong{font-size:.95rem;color:var(--green-800)}
+.room small{font-family:var(--mono);color:var(--mute)}
+.room.wide{grid-column:1 / -1;min-height:64px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:14px;font-size:.86rem;color:var(--mute)}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend em{width:14px;height:14px;border:2px solid;border-radius:4px;display:inline-block}
+
+/* detail */
+.picker{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+select{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:9px 12px;min-width:220px;transition:.2s}
+select:focus{outline:0;border-color:var(--teal-500);box-shadow:0 0 0 4px rgba(20,163,184,.15)}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 6px 18px rgba(7,61,41,.06)}
+.panel h3{margin:0 0 2px;font-size:1rem;font-weight:800;color:var(--green-800)}
+.panel p.note{margin:0 0 8px;color:var(--mute);font-size:.84rem}
+.now{font-family:var(--mono);font-weight:700;font-size:1.3rem;color:var(--ink)}
+.panel svg{display:block;width:100%;height:auto}
+.fact{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.fact div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.fact small{color:var(--mute);display:block;font-size:.8rem}
+.fact b{font-family:var(--mono);font-size:1.05rem;color:var(--green-800)}
+.empty{color:var(--mute);padding:26px 8px;text-align:center;border:1px dashed var(--line);border-radius:8px;font-size:.92rem}
+
+/* table */
+.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 18px rgba(7,61,41,.06)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.82rem;color:#fff;font-weight:700;background:linear-gradient(135deg,#073d29,#0b6b73)}
+tbody tr:hover td{background:#e6f7ee}
+tr:last-child td{border-bottom:0}
+td.t{font-family:var(--mono);white-space:nowrap}
+.btn{background:var(--grad);color:#fff;border:0;border-radius:99px;padding:9px 20px;font-weight:700;cursor:pointer;box-shadow:0 8px 18px rgba(20,163,184,.3);transition:.25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(20,163,184,.4)}
+.btn.ghost{background:none;color:var(--green-800);border:2px solid var(--green-600);box-shadow:none;padding:5px 14px;font-size:.84rem}
+.btn.ghost:hover{background:var(--green-600);color:#fff}
+.btn:disabled{opacity:.55;cursor:default}
+
+/* settings */
+.form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+label{display:block;font-size:.88rem;font-weight:600;margin-bottom:4px;color:var(--green-800)}
+label span{display:block;font-weight:400;color:var(--mute);font-size:.8rem}
+input[type=text],input[type=number],input[type=tel]{width:100%;background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:9px 12px;transition:.2s}
+input[type=text]:focus,input[type=number]:focus,input[type=tel]:focus{outline:0;border-color:var(--teal-500);background:#fff;box-shadow:0 0 0 4px rgba(20,163,184,.15)}
+.actions{margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--green-900);color:#e6f6ef;padding:11px 20px;border-radius:99px;font-size:.9rem;font-weight:600;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .2s}
+#toast.show{opacity:1}
+
+@media (max-width:720px){
+  .counts{grid-template-columns:repeat(2,1fr)}
+  .grid2,.form{grid-template-columns:1fr}
+  .fact{grid-template-columns:repeat(2,1fr)}
+  .map{grid-template-columns:repeat(2,1fr)}
+  .trap{grid-template-columns:auto 1fr}
+  .pillcell{grid-column:2;grid-row:auto;justify-self:start;margin-top:6px}
+  .tid{grid-row:auto}
+}
+@media (prefers-reduced-motion:reduce){#toast{transition:none}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="mockbar">Mock-up with sample data. Nothing on this page is a live reading. <a href="how-it-works.html" target="_top">Back to website</a></div>
+
+<header>
+  <div class="wrap top">
+    <div class="brand">
+      <img src="logo.png" alt="" width="44" height="44">
+      <div>
+        <h1>Bantay-<b>Lamok</b></h1>
+        <p>Sample National High School · Hub 1</p>
+      </div>
+    </div>
+    <div class="hub" aria-label="Hub status">
+      <span>Updated <b id="now">Oct 11, 14:20</b></span>
+      <span>LTE <b>−79 dBm</b></span>
+      <span>SMS today <b id="smsCount">5 / 20</b></span>
+      <span>Wi-Fi clients <b>2 / 4</b></span>
+      <span>Log <b>SD ok</b></span>
+    </div>
+  </div>
+</header>
+
+<nav aria-label="Dashboard sections">
+  <div class="wrap" role="tablist">
+    <button role="tab" id="t-overview" aria-selected="true" aria-controls="p-overview">Overview</button>
+    <button role="tab" id="t-map" aria-selected="false" aria-controls="p-map">Classroom map</button>
+    <button role="tab" id="t-detail" aria-selected="false" aria-controls="p-detail">Trap detail</button>
+    <button role="tab" id="t-alerts" aria-selected="false" aria-controls="p-alerts">Alert log</button>
+    <button role="tab" id="t-settings" aria-selected="false" aria-controls="p-settings">Settings</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section id="p-overview" role="tabpanel" aria-labelledby="t-overview">
+    <h2>Which traps need a visit</h2>
+    <p class="sub">Traps that need action are listed first. Tap a trap to see its readings.</p>
+    <div class="counts" id="counts"></div>
+    <div id="groups"></div>
+  </section>
+
+  <section id="p-map" role="tabpanel" aria-labelledby="t-map" hidden>
+    <h2>Classroom map</h2>
+    <p class="sub">Each box is one trap, colored by its status. It shows where attention is needed, not where mosquitoes are.</p>
+    <div class="map" id="map"></div>
+    <div class="legend">
+      <span><em style="border-color:var(--ok)"></em>Normal</span>
+      <span><em style="border-color:var(--warn)"></em>Needs a visit</span>
+      <span><em style="border-color:var(--crit)"></em>Urgent</span>
+      <span><em style="border-color:var(--off);border-style:dashed"></em>Offline</span>
+    </div>
+  </section>
+
+  <section id="p-detail" role="tabpanel" aria-labelledby="t-detail" hidden>
+    <h2>Trap detail</h2>
+    <p class="sub">Last 7 days, one reading every 6 hours, from the hub's log.</p>
+    <div class="picker">
+      <label for="pick" style="margin:0">Trap</label>
+      <select id="pick"></select>
+      <span id="detailPill"></span>
+    </div>
+    <div class="fact" id="facts"></div>
+    <div class="grid2">
+      <div class="panel"><h3>Temperature</h3><p class="note" id="tNote"></p><div id="cTemp"></div></div>
+      <div class="panel"><h3>Humidity</h3><p class="note" id="hNote"></p><div id="cHum"></div></div>
+      <div class="panel"><h3>Water level</h3><p class="note">Float switch: present or low</p><div id="cWater"></div></div>
+      <div class="panel"><h3>Battery</h3><p class="note" id="bNote"></p><div id="cBatt"></div></div>
+    </div>
+  </section>
+
+  <section id="p-alerts" role="tabpanel" aria-labelledby="t-alerts" hidden>
+    <h2>Alert log</h2>
+    <p class="sub">Every SMS the hub sent, and who confirmed the trap was serviced. Staff can also reply ACK and the trap number by text.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Time</th><th>Trap</th><th>Status</th><th>SMS</th><th>Confirmed</th></tr></thead>
+        <tbody id="alertRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="p-settings" role="tabpanel" aria-labelledby="t-settings" hidden>
+    <h2>Settings</h2>
+    <p class="sub">Changes apply to the next 10-minute cycle. Phone numbers below are placeholders.</p>
+    <div class="panel" style="margin-bottom:12px">
+      <h3>Who gets texts</h3>
+      <div class="form" style="margin-top:10px">
+        <div><label for="ph1">Maintenance staff</label><input id="ph1" type="tel" value="+63 900 000 0001"></div>
+        <div><label for="ph2">Administrator<span>Receives the weekly summary</span></label><input id="ph2" type="tel" value="+63 900 000 0002"></div>
+      </div>
+    </div>
+    <div class="panel" style="margin-bottom:12px">
+      <h3>When a trap needs a visit</h3>
+      <div class="form" style="margin-top:10px">
+        <div><label for="s1">Service due after (days)<span>Matches the weekly OL trap routine</span></label><input id="s1" type="number" value="7" min="1"></div>
+        <div><label for="s2">Low battery below (%)</label><input id="s2" type="number" value="20" min="5" max="50"></div>
+        <div><label for="s3">Offline after (missed cycles)</label><input id="s3" type="number" value="3" min="2"></div>
+        <div><label for="s4">Node reports every (minutes)</label><input id="s4" type="number" value="10" min="5"></div>
+        <div><label for="s5">Repeat unconfirmed alerts every (hours)<span>Up to 3 times</span></label><input id="s5" type="number" value="24" min="1"></div>
+        <div><label for="s6">Daily SMS limit</label><input id="s6" type="number" value="20" min="1"></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Traps</h3>
+      <div class="tablewrap" style="margin-top:10px;border:0">
+        <table><thead><tr><th>Trap</th><th>Location</th></tr></thead><tbody id="trapRows"></tbody></table>
+      </div>
+    </div>
+    <div class="actions"><button class="btn" id="save">Save changes</button><span style="color:var(--mute);font-size:.88rem">Hub clock: Oct 11, 2026 14:20 (DS3231)</span></div>
+  </section>
+
+</main>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ---------- sample data ---------- */
+var STATUS = {
+  "Normal":          {cls:"s-ok",   icon:"●", rank:5, group:"ok"},
+  "Water low":       {cls:"s-crit", icon:"▼", rank:0, group:"attn"},
+  "Sensor error":    {cls:"s-crit", icon:"!", rank:1, group:"attn"},
+  "Lid opened":      {cls:"s-warn", icon:"▲", rank:2, group:"attn"},
+  "Service due":     {cls:"s-warn", icon:"◷", rank:3, group:"attn"},
+  "Low battery":     {cls:"s-warn", icon:"▮", rank:4, group:"attn"},
+  "Node offline":    {cls:"s-off",  icon:"✕", rank:6, group:"off"}
+};
+var TRAPS = [
+  {id:"01", room:"Rm 101",      status:"Normal",       why:"Everything within range",               batt:88, volt:4.02, t:28.4, h:71, water:"OK",  age:2, seen:3},
+  {id:"02", room:"Rm 102",      status:"Normal",       why:"Everything within range",               batt:81, volt:3.96, t:28.9, h:69, water:"OK",  age:3, seen:2},
+  {id:"03", room:"Rm 204",      status:"Water low",    why:"Float switch low in 2 readings in a row", batt:72, volt:3.91, t:29.1, h:66, water:"Low", age:5, seen:4},
+  {id:"04", room:"Library",     status:"Service due",  why:"Last serviced 8 days ago",              batt:64, volt:3.85, t:27.6, h:74, water:"OK",  age:8, seen:5},
+  {id:"05", room:"Canteen",     status:"Lid opened",   why:"Beam blocked in 2 readings in a row",   batt:59, volt:3.82, t:30.2, h:63, water:"OK",  age:4, seen:1},
+  {id:"06", room:"Science Lab", status:"Low battery",  why:"Battery at 18%",                        batt:18, volt:3.48, t:28.1, h:70, water:"OK",  age:6, seen:6},
+  {id:"07", room:"Garden",      status:"Node offline", why:"No packet for 4 cycles",                batt:null, volt:null, t:null, h:null, water:"?", age:3, seen:47},
+  {id:"08", room:"Rm 301",      status:"Sensor error", why:"No valid DHT22 reading after retries",  batt:77, volt:3.94, t:null, h:null, water:"OK", age:2, seen:3},
+  {id:"09", room:"Rm 205",      status:"Normal",       why:"Everything within range",               batt:90, volt:4.05, t:28.6, h:70, water:"OK",  age:1, seen:2},
+  {id:"10", room:"Gym",         status:"Normal",       why:"Everything within range",               batt:84, volt:3.99, t:29.8, h:65, water:"OK",  age:2, seen:7}
+];
+var ALERTS = [
+  {when:"Oct 11 14:20", trap:"03", status:"Water low",    sms:"Sent",                    ack:null},
+  {when:"Oct 11 13:05", trap:"05", status:"Lid opened",   sms:"Sent",                    ack:"Mr. Reyes, 13:12"},
+  {when:"Oct 11 12:40", trap:"07", status:"Node offline", sms:"Sent",                    ack:null},
+  {when:"Oct 11 11:15", trap:"06", status:"Low battery",  sms:"Sent",                    ack:null},
+  {when:"Oct 11 09:00", trap:"04", status:"Service due",  sms:"Sent, reminder 1 of 3",   ack:null},
+  {when:"Oct 10 16:30", trap:"08", status:"Sensor error", sms:"Sent, reminder 1 of 3",   ack:null},
+  {when:"Oct 10 08:00", trap:"All", status:"Weekly summary", sms:"Sent to administrator", ack:"Not needed"}
+];
+var MAPCELLS = [["01"],["02"],["04"],["03"],["09"],["06"],["08"],["05"],["10"],["07","wide"]];
+
+function trap(id){return TRAPS.filter(function(x){return x.id===id})[0]}
+function pill(s){var c=STATUS[s];return '<span class="pill '+c.cls+'"><i aria-hidden="true">'+c.icon+'</i>'+s+'</span>'}
+function ago(m){return m<60? m+' min ago' : Math.floor(m/60)+' h '+(m%60)+' min ago'}
+function el(id){return document.getElementById(id)}
+
+/* ---------- overview ---------- */
+function renderOverview(){
+  var ok=TRAPS.filter(function(x){return STATUS[x.status].group==="ok"});
+  var attn=TRAPS.filter(function(x){return STATUS[x.status].group==="attn"}).sort(function(a,b){return STATUS[a.status].rank-STATUS[b.status].rank});
+  var off=TRAPS.filter(function(x){return STATUS[x.status].group==="off"});
+  el("counts").innerHTML =
+    '<div class="count warn"><b>'+attn.length+'</b><span>Need a visit</span></div>'+
+    '<div class="count off"><b>'+off.length+'</b><span>Offline</span></div>'+
+    '<div class="count ok"><b>'+ok.length+'</b><span>Normal</span></div>'+
+    '<div class="count"><b>'+TRAPS.length+'</b><span>Traps in this school</span></div>';
+  function card(x){
+    return '<li><button class="trap '+STATUS[x.status].cls+'" data-id="'+x.id+'">'+
+      '<span class="tid">'+x.id+'</span>'+
+      '<span><span class="troom">'+x.room+'</span><br><span class="why">'+x.why+'</span></span>'+
+      '<span class="pillcell">'+pill(x.status)+'</span>'+
+      '<span class="meta"><span>Water <b>'+x.water+'</b></span>'+
+      '<span>Battery <b>'+(x.batt===null?'–':x.batt+'%')+'</b></span>'+
+      '<span>Serviced <b>'+x.age+' d ago</b></span>'+
+      '<span>Heard <b>'+ago(x.seen)+'</b></span></span></button></li>';
+  }
+  el("groups").innerHTML =
+    '<div class="group-title"><h3>Needs a visit</h3><span>most urgent first</span></div><ul class="queue">'+attn.map(card).join('')+'</ul>'+
+    '<div class="group-title"><h3>Offline</h3><span>no recent packets</span></div><ul class="queue">'+off.map(card).join('')+'</ul>'+
+    '<div class="group-title"><h3>Normal</h3></div><details class="normal"><summary>Show '+ok.length+' normal traps</summary><ul class="queue" style="margin-top:8px">'+ok.map(card).join('')+'</ul></details>';
+}
+
+/* ---------- map ---------- */
+function renderMap(){
+  el("map").innerHTML = MAPCELLS.map(function(c){
+    var x=trap(c[0]);
+    return '<button class="room '+STATUS[x.status].cls+(c[1]?' '+c[1]:'')+'" data-id="'+x.id+'">'+
+      '<strong>'+x.room+'</strong><span>'+pill(x.status)+'</span><small>Trap '+x.id+'</small></button>';
+  }).join('');
+}
+
+/* ---------- charts ---------- */
+var N = 29; /* 7 days x 4 readings + now */
+function lcg(seed){var s=seed;return function(){s=(s*1664525+1013904223)%4294967296;return s/4294967296}}
+function seriesFor(x,kind){
+  var r=lcg(parseInt(x.id,10)*97+kind.length*13), out=[], len = x.status==="Node offline"? N-8 : N, i, v;
+  for(i=0;i<len;i++){
+    var day=Math.sin((i%4)/4*2*Math.PI);
+    if(kind==="t"){ if(x.t===null && x.status==="Sensor error" && i>len-9) {out.push(null);continue;} if(x.t===null && x.status==="Node offline"){v=28+2.2*day+(r()-.5)*.8} else {v=x.t-1.2+1.6*day+(r()-.5)*.8} }
+    if(kind==="h"){ if(x.h===null && x.status==="Sensor error" && i>len-9) {out.push(null);continue;} if(x.h===null){v=70-5*day+(r()-.5)*2} else {v=x.h+2-4*day+(r()-.5)*2} }
+    if(kind==="b"){ var end = x.batt===null? 70 : x.batt; v = Math.min(100,end+9) - 9*(i/(len-1)) + (r()-.5)*.6; }
+    out.push(v);
+  }
+  return out;
+}
+function line(vals,min,max,unit,color){
+  var W=360,H=150,L=34,R=10,T=10,B=24, n=N, pts=[], seg=[], i, d='';
+  function X(i){return L+i*(W-L-R)/(n-1)}
+  function Y(v){return T+(1-(v-min)/(max-min))*(H-T-B)}
+  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Line chart, last 7 days">';
+  [0,.5,1].forEach(function(f){
+    var v=min+(max-min)*f, y=Y(v);
+    s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="var(--line)" stroke-width="1"/>'+
+       '<text x="'+(L-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="10" fill="var(--mute)">'+Math.round(v)+'</text>';
+  });
+  var days=["Oct 5","Oct 6","Oct 7","Oct 8","Oct 9","Oct 10","Oct 11"];
+  for(i=0;i<7;i++){ s+='<text x="'+X(i*4)+'" y="'+(H-6)+'" text-anchor="middle" font-size="10" fill="var(--mute)">'+days[i]+'</text>'; }
+  var run=[];
+  vals.forEach(function(v,i){ if(v===null){ if(run.length){seg.push(run);run=[]} } else {run.push([X(i),Y(v)])} });
+  if(run.length) seg.push(run);
+  seg.forEach(function(r){
+    d=r.map(function(p,k){return (k?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)}).join('');
+    s+='<path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linejoin="round"/>';
+  });
+  var last=null; vals.forEach(function(v,i){if(v!==null)last=[X(i),Y(v)]});
+  if(last) s+='<circle cx="'+last[0]+'" cy="'+last[1]+'" r="3.5" fill="'+color+'"/>';
+  return s+'</svg>';
+}
+function waterStrip(x){
+  var W=360,H=60,L=34,R=10, n=28, bw=(W-L-R)/n, s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Water level, last 7 days">', i, low;
+  for(i=0;i<n;i++){
+    low = x.water==="Low" && i>=n-2;
+    var gap = x.status==="Node offline" && i>=n-8;
+    s+='<rect x="'+(L+i*bw+1)+'" y="8" width="'+(bw-2)+'" height="26" rx="2" fill="'+(gap?'var(--off-bg)':low?'var(--crit)':'var(--brand)')+'" opacity="'+(gap?1:.85)+'"/>';
+  }
+  s+='<text x="'+L+'" y="52" font-size="10" fill="var(--mute)">Oct 5</text><text x="'+(W-R)+'" y="52" font-size="10" text-anchor="end" fill="var(--mute)">Oct 11</text>'+
+     '<text x="'+(L-6)+'" y="25" font-size="10" text-anchor="end" fill="var(--mute)">OK</text>';
+  return s+'</svg>';
+}
+function renderDetail(id){
+  var x=trap(id);
+  el("pick").value=id;
+  el("detailPill").innerHTML=pill(x.status)+' <span style="color:var(--mute);font-size:.9rem;margin-left:6px">'+x.why+'</span>';
+  el("facts").innerHTML =
+    '<div><small>Location</small><b>'+x.room+'</b></div>'+
+    '<div><small>Serviced</small><b>'+x.age+' d ago</b></div>'+
+    '<div><small>Last heard</small><b>'+ago(x.seen)+'</b></div>'+
+    '<div><small>Battery</small><b>'+(x.batt===null?'–':x.batt+'% · '+x.volt.toFixed(2)+' V')+'</b></div>';
+  var noT = x.status==="Sensor error";
+  el("tNote").innerHTML = x.t===null ? (noT?'No valid DHT22 reading since Oct 10, 21:00':'Last reading before the node went quiet') : 'Now <span class="now">'+x.t.toFixed(1)+' °C</span>';
+  el("hNote").innerHTML = x.h===null ? (noT?'No valid DHT22 reading since Oct 10, 21:00':'Last reading before the node went quiet') : 'Now <span class="now">'+x.h+' %</span>';
+  el("bNote").innerHTML = x.batt===null ? 'No reading for '+ago(x.seen) : 'Now <span class="now">'+x.batt+' %</span>';
+  el("cTemp").innerHTML = line(seriesFor(x,"t"),24,34,"°C","var(--crit)");
+  el("cHum").innerHTML  = line(seriesFor(x,"h"),50,90,"%","var(--brand)");
+  el("cWater").innerHTML = waterStrip(x);
+  el("cBatt").innerHTML = line(seriesFor(x,"b"),0,100,"%","var(--ok)");
+}
+
+/* ---------- alert log ---------- */
+function renderAlerts(){
+  el("alertRows").innerHTML = ALERTS.map(function(a,i){
+    var st = STATUS[a.status] ? pill(a.status) : a.status;
+    var conf = a.ack ? a.ack : '<button class="btn ghost" data-ack="'+i+'">Mark serviced</button>';
+    return '<tr><td class="t">'+a.when+'</td><td>'+(a.trap==="All"?"All traps":'Trap '+a.trap+(trap(a.trap)?' · '+trap(a.trap).room:''))+'</td><td>'+st+'</td><td>'+a.sms+'</td><td id="ack'+i+'">'+conf+'</td></tr>';
+  }).join('');
+}
+
+/* ---------- settings ---------- */
+function renderSettings(){
+  el("trapRows").innerHTML = TRAPS.map(function(x){
+    return '<tr><td class="t">'+x.id+'</td><td><input type="text" value="'+x.room+'" aria-label="Location of trap '+x.id+'"></td></tr>';
+  }).join('');
+}
+
+/* ---------- wiring ---------- */
+function toast(msg){var t=el("toast");t.textContent=msg;t.className="show";clearTimeout(toast.h);toast.h=setTimeout(function(){t.className=""},2200)}
+function showTab(name){
+  ["overview","map","detail","alerts","settings"].forEach(function(n){
+    el("p-"+n).hidden = n!==name;
+    el("t-"+n).setAttribute("aria-selected", n===name ? "true":"false");
+  });
+  window.scrollTo(0,0);
+}
+document.querySelectorAll("nav button").forEach(function(b){b.addEventListener("click",function(){showTab(b.id.slice(2))})});
+document.addEventListener("click",function(e){
+  var b=e.target.closest("[data-id]");
+  if(b){renderDetail(b.getAttribute("data-id"));showTab("detail");return}
+  var k=e.target.closest("[data-ack]");
+  if(k){var i=k.getAttribute("data-ack");ALERTS[i].ack="Marked serviced, 14:21";el("ack"+i).textContent=ALERTS[i].ack;toast("Trap "+ALERTS[i].trap+" marked as serviced")}
+});
+el("pick").innerHTML = TRAPS.map(function(x){return '<option value="'+x.id+'">Trap '+x.id+' · '+x.room+'</option>'}).join('');
+el("pick").addEventListener("change",function(){renderDetail(this.value)});
+el("save").addEventListener("click",function(){toast("Settings saved")});
+
+renderOverview();renderMap();renderAlerts();renderSettings();renderDetail("03");
+</script>
+</body>
+</html>
